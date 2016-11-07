@@ -319,6 +319,10 @@
 #        'acme_saml2' => ['acme', 'saml2'],
 #      }
 #
+#  [*password_retrieve*]
+#    (optional) Enables the use of 'Retrieve Password' in the Horizon Web UI.
+#    Defaults to false
+#
 # === DEPRECATED group/name
 #
 #  [*fqdn*]
@@ -418,6 +422,7 @@ class horizon(
   $websso_initial_choice               = undef,
   $websso_choices                      = undef,
   $websso_idp_mapping                  = undef,
+  $password_retrieve                   = false,
   # DEPRECATED PARAMETERS
   $custom_theme_path                   = undef,
   $fqdn                                = undef,
