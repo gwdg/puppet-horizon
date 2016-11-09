@@ -442,6 +442,17 @@ describe 'horizon' do
                                           '    "acme_saml2": ("acme", "saml2"),',
                                           '}',
                                         ])
+    context 'with disable password reveal enabled' do
+      before do
+        params.merge!({
+          :disable_password_reveal => true
+        })
+      end
+
+      it 'disable_password_reveal is configured' do
+        verify_concat_fragment_contents(catalogue, 'local_settings.py', [
+          'HORIZON_CONFIG["disable_password_reveal"] = True',
+        ])
       end
     end
   end
