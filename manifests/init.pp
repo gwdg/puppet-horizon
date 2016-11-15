@@ -327,6 +327,10 @@
 #    (optional) Disables the use of reveal button for passwords in the UI.
 #    Defaults to false
 #
+#  [*enforce_password_check*]
+#    (optional) Disables Admin password prompt on Change Password form.
+#    Defaults to false
+#
 # === DEPRECATED group/name
 #
 #  [*fqdn*]
@@ -428,6 +432,7 @@ class horizon(
   $websso_idp_mapping                  = undef,
   $password_retrieve                   = false,
   $disable_password_reveal             = false,
+  $enforce_password_check              = false,
   # DEPRECATED PARAMETERS
   $custom_theme_path                   = undef,
   $fqdn                                = undef,
