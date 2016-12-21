@@ -343,6 +343,15 @@
 #    Scripting (XFS) vulnerability, so this option allows extra security hardening
 #    where iframes are not used in deployment. Default setting is True.
 #
+#  [*password_validator*]
+#    (optional) Horizon provides a password validation check, which OpenStack cloud
+#    operators can use to enforce password complexity checks for users within horizon.
+#    A dictionary containing a regular expression can be used for password validation
+#    with help text that is displayed if the password does not pass validation.
+#
+#  [*password_validator_help*]
+#    (optional) Help text to display when password validation fails in horizon.
+#
 # === DEPRECATED group/name
 #
 #  [*fqdn*]
@@ -447,6 +456,8 @@ class horizon(
   $enforce_password_check              = false,
   $enable_secure_proxy_ssl_header      = false,
   $disallow_iframe_embed               = true,
+  $password_validator                  = undef,
+  $password_validator_help             = undef,
   # DEPRECATED PARAMETERS
   $custom_theme_path                   = undef,
   $fqdn                                = undef,
