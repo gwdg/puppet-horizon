@@ -174,7 +174,7 @@ class horizon::wsgi::apache (
   }
 
   Package['horizon'] -> Package['httpd']
-  Concat[$::horizon::params::config_file] ~> Service['httpd']
+  Concat[$::horizon::params::config_file] ~> Service[$::horizon::params::http_service]
 
   $unix_user  = $::horizon::params::wsgi_user
   $unix_group = $::horizon::params::wsgi_group
@@ -183,7 +183,7 @@ class horizon::wsgi::apache (
     ensure  => directory,
     owner   => $unix_user,
     group   => $unix_group,
-    before  => Service['httpd'],
+    before  => [ Service[$::horizon::params::http_service], Exec['refresh_horizon_django_compress'] ],
     mode    => '0751',
     require => Package['horizon'],
   }
@@ -192,7 +192,7 @@ class horizon::wsgi::apache (
     ensure  => file,
     owner   => $unix_user,
     group   => $unix_group,
-    before  => Service['httpd'],
+    before  => Service[$::horizon::params::http_service],
     mode    => '0640',
     require => [ File[$::horizon::params::logdir], Package['horizon'] ],
   }
