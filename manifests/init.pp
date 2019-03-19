@@ -474,6 +474,9 @@ class horizon(
   $tuskar_ui_ironic_discoverd_url      = undef,
   $tuskar_ui_undercloud_admin_password = undef,
   $tuskar_ui_deployment_mode           = undef,
+  # New params
+  $ssl_forward                         = false,
+  $ssh_redirect_url                    = undef,
 ) inherits ::horizon::params {
 
   $hypervisor_defaults = {
@@ -603,6 +606,7 @@ settings_local.py and parameter server_aliases for setting ServerAlias directive
       redirect_type  => $redirect_type,
       root_url       => $root_url,
       root_path      => $root_path,
+      ssh_redirect_url => $ssh_redirect_url
     }
   }
 
