@@ -637,22 +637,8 @@ settings_local.py and parameter server_aliases for setting ServerAlias directive
     require     => Package['horizon'],
   }
 
-#copy default theme as it is used via import in gwdg theme
-  file { '/var/lib/openstack-dashboard/static/themes/default':
-    ensure  => directory,
-    path    => '/var/lib/openstack-dashboard/static/themes/default',
-    source  => '/usr/share/openstack-dashboard/openstack_dashboard/themes/default',
-    owner   => root,
-    group   => root,
-    mode    => 'u+w',
-    recurse => true,
-    force   => true,
-    before => Exec['refresh_horizon_django_compress'],
-    subscribe => Exec['refresh_horizon_django_cache'],
-  }
-
   if $compress_offline {
-    Concat[$::horizon::params::config_file] ~> Exec['refresh_horizon_django_cache'] ~> Exec['refresh_horizon_django_compress']
+    Concat[$::horizon::params::config_file] ~> Exec['refresh_horizon_django_compress']
     if $::os_package_type == 'rpm' {
       Concat[$::horizon::params::config_file] ~> Exec['refresh_horizon_django_cache'] -> Exec['refresh_horizon_django_compress']
     }
